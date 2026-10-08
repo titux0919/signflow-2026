@@ -1,6 +1,8 @@
 package web
 
-templ Home() {
+import "strconv"
+
+templ Home(userCount int64) {
     @Layout("Home") {
         <section class="hero">
             <h1>Sign documents. Keep the receipts.</h1>
@@ -27,7 +29,14 @@ templ Home() {
             <ul class="checklist">
                 <li>✅ Chi router + middleware</li>
                 <li>✅ Templ rendering this page</li>
+                <li>✅ Postgres connected via pgx</li>
+                <li>✅ goose migrations applied</li>
             </ul>
+
+            <p class="muted">
+                Registered users in the database:
+                <strong>{ strconv.FormatInt(userCount, 10) }</strong>
+            </p>
         </section>
     }
 }

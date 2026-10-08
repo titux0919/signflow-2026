@@ -31,6 +31,8 @@ func Load() (Config, error) {
 		BaseURL: os.Getenv("BASE_URL"),
 	}
 
+	fmt.Println("DATABASE_URL =", cfg.DatabaseURL)
+
 	if cfg.BaseURL == "" {
 		cfg.BaseURL = "http://localhost:" + cfg.Port
 	}

@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io/fs"
 	"net/http"
 
 	"signflow-2026/internal/config"
+	"signflow-2026/internal/db"
 	"signflow-2026/internal/handlers"
 	"signflow-2026/static"
 )
@@ -16,7 +18,19 @@ func main() {
 		panic(err)
 	}
 
-	h := &handlers.Handlers{}
+	ctx := context.Background()
+
+	pool, err := db.Connect(ctx, cfg.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer pool.Close()
+
+	queries := db.New(pool)
+
+	h := &handlers.Handlers{
+		Queries: queries,
+	}
 
 	staticFS, err := fs.Sub(static.FS, "assets")
 	if err != nil {

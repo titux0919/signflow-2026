@@ -8,7 +8,9 @@ package web
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Home() templ.Component {
+import "strconv"
+
+func Home(userCount int64) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -41,7 +43,20 @@ func Home() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"hero\"><h1>Sign documents. Keep the receipts.</h1><p class=\"lead\">Upload a document, invite signers by email, and collect typed signatures. Every action lands in an append-only audit trail.</p><div class=\"cta-row\"><a class=\"btn btn-primary\" href=\"/register\">Get started</a> <a class=\"btn btn-ghost\" href=\"/login\">Log in</a></div></section><section class=\"status-card\"><h2>Skeleton status</h2><ul class=\"checklist\"><li>✅ Chi router + middleware</li><li>✅ Templ rendering this page</li></ul></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"hero\"><h1>Sign documents. Keep the receipts.</h1><p class=\"lead\">Upload a document, invite signers by email, and collect typed signatures. Every action lands in an append-only audit trail.</p><div class=\"cta-row\"><a class=\"btn btn-primary\" href=\"/register\">Get started</a> <a class=\"btn btn-ghost\" href=\"/login\">Log in</a></div></section><section class=\"status-card\"><h2>Skeleton status</h2><ul class=\"checklist\"><li>✅ Chi router + middleware</li><li>✅ Templ rendering this page</li><li>✅ Postgres connected via pgx</li><li>✅ goose migrations applied</li></ul><p class=\"muted\">Registered users in the database: <strong>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.FormatInt(userCount, 10))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/home.templ`, Line: 38, Col: 58}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</strong></p></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
