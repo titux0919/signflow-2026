@@ -23,6 +23,8 @@ func (h *Handlers) Router(staticFS fs.FS) http.Handler {
 	r.Get("/", h.Home)
 	r.Get("/healthz", h.Health)
 	r.Get("/about", h.About)
+	r.Get("/register", h.RegisterForm)
+	r.Post("/register", h.Register)
 
 	return r
 }
