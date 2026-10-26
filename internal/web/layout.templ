@@ -1,6 +1,6 @@
 package web
 
-templ Layout(title string) {
+templ Layout(title string, nav Nav) {
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -16,9 +16,23 @@ templ Layout(title string) {
         <body>
             <header class="topbar">
                 <a href="/" class="brand">✍️ SignFlow</a>
-                <span class="tagline">
-                    document signing, honestly simplified
-                </span>
+
+                <nav class="topnav">
+                    if nav.LoggedIn {
+                        <a href="/dashboard">Dashboard</a>
+                        <span class="who">{ nav.Email }</span>
+                        <form method="post" action="/logout" class="inline-form">
+                            <button type="submit" class="btn btn-ghost btn-sm">
+                                Log out
+                            </button>
+                        </form>
+                    } else {
+                        <a href="/login">Log in</a>
+                        <a href="/register" class="btn btn-primary btn-sm">
+                            Register
+                        </a>
+                    }
+                </nav>
             </header>
 
             <main class="container">

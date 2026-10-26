@@ -1,0 +1,12 @@
+package web
+
+templ Account(nav Nav) {
+	@Layout("Account", nav) {
+		<section class="hero">
+			<h1>Your account</h1>
+			<p class="lead">
+				You're signed in as <strong>{ nav.Email }</strong>.
+			</p>
+		</section>
+	}
+}

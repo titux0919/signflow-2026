@@ -2,8 +2,8 @@ package web
 
 import "strconv"
 
-templ Home(userCount int64) {
-    @Layout("Home") {
+templ Home(nav Nav, userCount int64) {
+    @Layout("Home", nav) {
         <section class="hero">
             <h1>Sign documents. Keep the receipts.</h1>
 

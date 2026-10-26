@@ -29,13 +29,19 @@ func New(cfg config.Config, q *db.Queries, sessions *session.Manager, log *slog.
 
 // Home renders the landing page, including the live user count.
 func (h *Handlers) Home(w http.ResponseWriter, r *http.Request) {
+	// If the user is logged in, redirect to the dashboard.
+	if _, ok := UserFrom(r.Context()); ok {
+		http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
+		return
+	}
+
 	count, err := h.Queries.CountUsers(r.Context())
 	if err != nil {
 		h.serverError(w, r, "count users", err)
 		return
 	}
 
-	render(w, r, http.StatusOK, web.Home(count))
+	render(w, r, http.StatusOK, web.Home(h.nav(r), count))
 }
 
 // About renders the about page.
